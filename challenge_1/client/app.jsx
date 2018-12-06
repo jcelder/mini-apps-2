@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Searchbar from './Searchbar';
 import ResultList from './ResultList';
+import ReactPaginate from 'react-paginate';
 
 class App extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class App extends Component {
           submitButtonHandler={this.submitButtonHandler}
         />
         <ResultList results={results} />
+        <ReactPaginate />
       </div>
     )
   }
