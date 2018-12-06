@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
+import axios from 'axios';
 import Searchbar from './Searchbar';
 import ResultList from './ResultList';
 
@@ -11,6 +11,8 @@ class App extends Component {
     this.state = {
       term: '',
       results: [],
+      page: 1,
+      resultCount: null
     }
 
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
@@ -24,8 +26,17 @@ class App extends Component {
   }
 
   submitButtonHandler(e) {
+    const { term } = this.state;
     e.preventDefault();
-    console.log(this.state.term);
+    axios.get(`/events?q=${term}&_page=1&_limit=10`)
+      .then((results) => {
+        console.log(results);
+        this.setState({
+          results: results.data,
+          resultCount: results.headers['x-total-count'],
+        })
+      })
+      .catch(e => console.log(e));
   }
 
   render() {
