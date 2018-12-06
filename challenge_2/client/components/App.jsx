@@ -3,6 +3,7 @@ import axios from 'axios';
 import transformToTimeSeries from '../utils/transformToTimeSeries';
 import Chart from './Chart';
 import Header from './Header';
+import Footer from './Footer';
 
 class App extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ class App extends Component {
           formSubmitHandler={this.formSubmitHandler}
         />
         <Chart data={data} />
+        <Footer />
       </div>
     );
   }
