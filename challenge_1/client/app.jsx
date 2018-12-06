@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import Searchbar from './Searchbar'
+import Searchbar from './Searchbar';
+import ResultList from './ResultList';
 
 class App extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class App extends Component {
 
     this.state = {
       term: '',
+      results: [],
     }
 
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
@@ -18,7 +20,7 @@ class App extends Component {
   inputChangeHandler(e, field) {
     this.setState({
       [field]: e.target.value
-    })
+    });
   }
 
   submitButtonHandler(e) {
@@ -27,7 +29,7 @@ class App extends Component {
   }
 
   render() {
-    const { term } = this.state;
+    const { term, results } = this.state;
     return (
       <div>
         <Searchbar
@@ -35,7 +37,7 @@ class App extends Component {
           inputChangeHandler={this.inputChangeHandler}
           submitButtonHandler={this.submitButtonHandler}
         />
-        <p>Events go here!</p>
+        <ResultList results={results} />
       </div>
     )
   }
