@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './client/app.jsx',
+  entry: './client/App.jsx',
   output: {
     path: path.resolve(__dirname, 'public', 'dist'),
     filename: 'bundle.js'
@@ -21,4 +21,7 @@ module.exports = {
     ]
   },
   mode: 'development',
+  resolve: {
+    extensions: ['.js', '.jsx']
+  }
 }
