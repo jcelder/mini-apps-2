@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import transformToTimeSeries from '../utils/transformToTimeSeries';
+import fetchData from '../utils/fetchData';
 import Chart from './Chart';
 import Header from './Header';
 import Footer from './Footer';
@@ -20,9 +19,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://api.coindesk.com/v1/bpi/historical/close.json')
-      .then(({ data }) => transformToTimeSeries(data.bpi))
-      .then(timeSeries => this.setState({ data: timeSeries }))
+    this.fetchCoinDesk();
+  }
+
+  fetchCoinDesk() {
+    const { startDate, endDate } = this.state;
+
+    fetchData(startDate, endDate)
+      .then(({ data }) => this.setState({ data }))
       .catch(console.log);
   }
 
@@ -34,14 +38,8 @@ class App extends Component {
   }
 
   formSubmitHandler(e) {
-    const { startDate, endDate } = this.state;
     e.preventDefault();
-    if (startDate.length !== 0 && endDate.length !== 0) {
-      axios.get(`https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}`)
-        .then(({ data }) => transformToTimeSeries(data.bpi))
-        .then(timeSeries => this.setState({ data: timeSeries }))
-        .catch(console.log);
-    }
+    this.fetchCoinDesk();
   }
 
   render() {
