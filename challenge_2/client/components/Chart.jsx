@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { defaults, Bar } from 'react-chartjs-2';
 
 const Chart = ({ data }) => {
@@ -29,14 +30,15 @@ const Chart = ({ data }) => {
               type: 'time',
               distribution: 'series',
             }],
-            yAxes: [{
-                
-            }]
           },
         }}
       />
     ) : null
   );
+};
+
+Chart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Chart;
